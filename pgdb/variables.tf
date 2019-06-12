@@ -1,0 +1,10 @@
+variable "DB_IDENTIFIER" {}
+variable "DB_ENGINE" {}
+variable "DB_ENGINE_VERSION" {}
+variable "DB_INSTANCE_CLASS" {}
+variable "DB_ALLOCATED_STORAGE" {}
+variable "DB_NAME" {}
+variable "DB_USERNAME" {}
+variable "DB_PASSWORD" {}
+variable "SECURITY_GROUP_ID" {}
+variable "DB_SUBNET_GROUP_NAME" {}
