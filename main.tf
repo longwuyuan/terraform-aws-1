@@ -2,6 +2,7 @@ provider "aws" {
   region = var.REGION
 }
 
+# Create the postgres db
 module "postgres" {
   source = "./pgdb/"
   DB_IDENTIFIER = var.DB_IDENTIFIER
@@ -12,6 +13,6 @@ module "postgres" {
   DB_NAME = var.DB_NAME
   DB_USERNAME = var.DB_USERNAME
   DB_PASSWORD = var.DB_PASSWORD
-  SECURITY_GROUP_ID = var.SECURITY_GROUP_ID
-  DB_SUBNET_GROUP_NAME = var.DB_SUBNET_GROUP_NAME
+  SECURITYGROUP_ID = var.SECURITYGROUP_ID
+  DB_SUBNETGROUP_NAME = var.DB_SUBNETGROUP_NAME
 }

@@ -1,17 +1,17 @@
 # Create the pgdb
 resource "aws_db_instance" "gfg-pgdb-1" {
-  identifier = "gfg-pgdb-1"
-  engine = "postgres"
-  engine_version = "11.2"
-  instance_class = "db.t2.micro"
-  allocated_storage = 8
+  identifier = var.DB_IDENTIFIER
+  engine = var.DB_ENGINE
+  engine_version = var.DB_ENGINE_VERSION
+  instance_class = var.DB_INSTANCE_CLASS
+  allocated_storage = var.DB_ALLOCATED_STORAGE
   storage_encrypted = false
-  name = "gfgdb"
+  name = var.DB_NAME
   username = var.DB_USERNAME
   password = var.DB_PASSWORD
-  vpc_security_group_ids = var.SECURITY_GROUP_ID
+  vpc_security_group_ids = var.SECURITYGROUP_ID
   publicly_accessible = true
-  db_subnet_group_name = var.DB_SUBNET_GROUP_NAME
+  db_subnet_group_name = var.DB_SUBNETGROUP_NAME
   backup_retention_period = 0
   skip_final_snapshot = true
   deletion_protection = false

@@ -1,7 +1,7 @@
 variable "REGION" {}
 variable "VPC_ID" {}
 variable "SUBNET_ID" {}
-variable "SECURITY_GROUP_ID" {}
+variable "SECURITYGROUP_ID" {}
 variable "DB_IDENTIFIER" {}
 variable "DB_ENGINE" {}
 variable "DB_ENGINE_VERSION" {}
@@ -10,5 +10,5 @@ variable "DB_ALLOCATED_STORAGE" {}
 variable "DB_NAME" {}
 variable "DB_USERNAME" {}
 variable "DB_PASSWORD" {}
-variable "DB_SUBNET_GROUP_NAME" {}
+variable "DB_SUBNETGROUP_NAME" {}
 variable "AMI_ID" {}
