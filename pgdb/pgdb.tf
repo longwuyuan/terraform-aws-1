@@ -9,7 +9,6 @@ resource "aws_db_instance" "pgdbserver" {
   name                    = var.DB_NAME
   username                = var.DB_USERNAME
   password                = var.DB_PASSWORD
-  kms_key_id = var.KMS_KEY_ID
   vpc_security_group_ids  = var.SECURITYGROUP_ID
   publicly_accessible     = true
   db_subnet_group_name    = var.DB_SUBNETGROUP_NAME
@@ -19,7 +18,8 @@ resource "aws_db_instance" "pgdbserver" {
 }
 
 resource "aws_ssm_parameter" "secret" {
-  name        = "PGDBSERVER-MASTER-PASSWORD"
-  type        = "SecureString"
-  value       = var.DB_PASSWORD
+  name   = "PGDBSERVER-MASTER-PASSWORD"
+  type   = "SecureString"
+  value  = var.DB_PASSWORD
+  key_id = var.KMS_KEY_ID
 }
