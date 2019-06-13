@@ -1,5 +1,5 @@
 # Create the pgdb
-resource "aws_db_instance" "gfg-pgdb-1" {
+resource "aws_db_instance" "pgdbserver" {
   identifier              = var.DB_IDENTIFIER
   engine                  = var.DB_ENGINE
   engine_version          = var.DB_ENGINE_VERSION

@@ -9,7 +9,7 @@ Terraform example for one RDS instance & One EC2 instance ;
     VPC_ID               = "vpc-0e922297898kj9314"
     SUBNET_ID            = ["subnet-07i56723jgfkj4467", "subnet-hsd8s8930f89sss66"]
     SECURITYGROUP_ID     = ["sg-02d863636j7s0s4s9"]
-    DB_IDENTIFIER        = "PGDBDBSERVER"
+    DB_IDENTIFIER        = "PGDBSERVER"
     DB_ENGINE            = "postgres"
     DB_ENGINE_VERSION    = "11.2"
     DB_INSTANCE_CLASS    = "db.t2.micro"
