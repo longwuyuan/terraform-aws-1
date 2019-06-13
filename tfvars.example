@@ -1,0 +1,15 @@
+REGION               = "us-west-1"
+VPC_ID               = "vpc-0e922297898kj9314"
+SUBNET_ID            = ["subnet-07i56723jgfkj4467", "subnet-hsd8s8930f89sss66"]
+SECURITYGROUP_ID     = ["sg-02d863636j7s0s4s9"]
+DB_IDENTIFIER        = "MY-DB-1"
+DB_ENGINE            = "postgres"
+DB_ENGINE_VERSION    = "11.2"
+DB_INSTANCE_CLASS    = "db.t2.micro"
+DB_ALLOCATED_STORAGE = 20
+DB_NAME              = "GFGDB"
+DB_USERNAME          = "user0"
+DB_PASSWORD          = "password123"
+DB_SUBNETGROUP_NAME  = "MY-SUBNETGROUP"
+AMI_ID               = "ami-010cb9019f3021398"
+
