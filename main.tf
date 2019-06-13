@@ -5,6 +5,7 @@ provider "aws" {
 # Create the postgres db
 module "postgres" {
   source               = "./pgdb/"
+  KMS_KEY_ID           = var.KMS_KEY_ID
   DB_IDENTIFIER        = var.DB_IDENTIFIER
   DB_ENGINE            = var.DB_ENGINE
   DB_ENGINE_VERSION    = var.DB_ENGINE_VERSION

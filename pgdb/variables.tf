@@ -1,3 +1,4 @@
+variable "KMS_KEY_ID" {}
 variable "DB_IDENTIFIER" {}
 variable "DB_ENGINE" {}
 variable "DB_ENGINE_VERSION" {}
