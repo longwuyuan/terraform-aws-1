@@ -45,3 +45,17 @@ module "db" {
   db_username          = var.db_username
   db_password          = module.dbpassword.db_password
 }
+
+# Create sshkeypair for ec2 instances
+module "sshkeypair" {
+  source    = "./sshkeypair"
+  sshpubkey = var.sshpubkey
+}
+
+# Create ec2-instance
+module ec2instance {
+  source     = "./ec2instance"
+  region     = var.region
+  awsami     = var.awsami
+  sshkeyname = module.sshkeypair.sshkeyname
+}
