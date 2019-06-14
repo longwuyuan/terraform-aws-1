@@ -7,25 +7,35 @@ module "kms" {
   source = "./kms/"
 }
 
+module "dbpassword" {
+  source = "./dbpassword"
+}
+
 # Store db-pass to ssm
 module "ssm" {
   source      = "./ssm"
-  db_password = var.db_password
+  db_password = module.dbpassword.db_password
   kms_key_id  = module.kms.kmskeyid
 }
 
-# Create securitygroup
-module "sg" {
-  source = "./sg"
+# Create db-securitygroup
+module "dbsecuritygroup" {
+  source = "./dbsecuritygroup"
   vpc_id = var.vpc_id
+}
+
+# Create db-subnetgroup-name
+module "dbsubnetgroupname" {
+  source        = "./dbsubnetgroupname"
+  vpc_id        = var.vpc_id
+  db_identifier = var.db_identifier
 }
 
 # Create postgres db
 module "db" {
   source               = "./db/"
-  vpc_id               = var.vpc_id
-  db_sg_id             = module.sg.sg_id
-  kms_key_id           = module.kms.kmskeyid
+  db_sg_id             = module.dbsecuritygroup.db_sg_id
+  db_subnetgroup_name  = module.dbsubnetgroupname.db_subnetgroup_name
   db_identifier        = var.db_identifier
   db_engine            = var.db_engine
   db_engine_version    = var.db_engine_version
@@ -33,6 +43,5 @@ module "db" {
   db_allocated_storage = var.db_allocated_storage
   db_name              = var.db_name
   db_username          = var.db_username
-  db_password          = var.db_password
-  db_subnetgroup_name  = var.db_subnetgroup_name
+  db_password          = module.dbpassword.db_password
 }

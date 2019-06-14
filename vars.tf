@@ -23,9 +23,4 @@ variable "db_name" {
 variable "db_username" {
   default = "pgdbuser"
 }
-variable "db_password" {
-  default = "PGDBUserPassword123"
-}
-variable "db_subnetgroup_name" {
-  default = "pgdbserver-subnetgroup"
-}
+variable "db_password" {}
