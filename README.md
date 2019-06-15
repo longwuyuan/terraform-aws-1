@@ -5,7 +5,8 @@ Terraform example for one RDS instance & One EC2 instance ;
 
 ## Requirements
 - Terraform version > 0.12
-- Ansible version
+- Ansible
+- AWS credentials in $HOME/.aws/ as per terraform default
 - terraform.tfvars as below
 
 ```

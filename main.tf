@@ -17,7 +17,8 @@ module "rds" {
 
 # Create ec2-instance for webserver
 module "webserver" {
-  source    = "./modules/webserver"
-  region    = var.region
-  awsami    = var.awsami
+  source = "./modules/webserver"
+  region = var.region
+  vpc_id = var.vpc_id
+  awsami = var.awsami
 }

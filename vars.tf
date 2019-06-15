@@ -1,10 +1,9 @@
-variable "region" {
-  default = "us-west-2"
-}
+# Input variables
+# AWS provider variables
+variable "region" {}
 variable "vpc_id" {}
-variable "kms_key_id" {}
 
-# Variables for db modules
+# Variables for rds module
 variable "db_identifier" {
   default = "pgdbserver"
 }
@@ -26,6 +25,8 @@ variable "db_name" {
 variable "db_username" {
   default = "pgdbuser"
 }
+
+# Variables for webserver module
 variable "awsami" {
   type = map(string)
   default = {
