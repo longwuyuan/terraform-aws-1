@@ -33,7 +33,7 @@ variable "sshkeyname" {}
 variable "awsami" {
   type = map(string)
   default = {
-    us-east-1 = "iami-0c1b880a476bb7b40"
-    us-west-2 = "ami-0e63f50857fdc1f9f"
+    us-east-1 = "ami-0c1b880a476bb7b40"
+    us-west-2 = "ami-0cb72367e98845d43"
   }
 }

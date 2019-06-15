@@ -1,21 +1,34 @@
-# Terraform example
+# Terraform for AWS - example
 
 Terraform example for one RDS instance & One EC2 instance ;
 - The VPC & its Subnets is pre-created outside of terraform
-- terraform.tfvars is populated by copy/pasting from the AWS-Console (see tfvars.example)
+
+## Requirements
+- Terraform version > 0.12
+- Ansible version
+- terraform.tfvars as below
 
 ```
 region     = "us-west-1"
 vpc_id     = "vpc-nhg20ks8"
 kms_key_id = ""
 db_sg_id   = ""
+db_password = ""
+sshkeyname = ""
 ```
-```
-- RDS instance uses postgres engine and non-default VPC+subnet
-- RDS instance uses KMS key
-- RDS password is in aws_ssm_parameter
-- RDS instance is seeded with some sample data to be presented on a webpage
+- Modify vars.tf, in root folder, as required 
 
-- EC2 instance is in the same non-default VPC
+## Caution - read & understand the impact of kms module
+
+## Features 
+- Creates ;
+        - kms key
+        - random string for rds master-password
+        - ssm parameter for rds master-password
+        - securitygroup for rds postgres
+        - subnetgroupname for rds
+        - rds postgres instance
+        - ec2 instance
+- RDS instance is seeded with some sample data to be presented on a webpage
 - Ansible installs Nginx
 - A simple python scripts queries the RDS and presents the data there on homepage of nginx
