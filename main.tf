@@ -2,40 +2,10 @@ provider "aws" {
   region = var.region
 }
 
-# Create kms key
-module "kms" {
-  source = "./kms/"
-}
-
-module "dbpassword" {
-  source = "./dbpassword"
-}
-
-# Store db-pass to ssm
-module "ssm" {
-  source      = "./ssm"
-  db_password = module.dbpassword.db_password
-  kms_key_id  = module.kms.kmskeyid
-}
-
-# Create db-securitygroup
-module "dbsecuritygroup" {
-  source = "./dbsecuritygroup"
-  vpc_id = var.vpc_id
-}
-
-# Create db-subnetgroup-name
-module "dbsubnetgroupname" {
-  source        = "./dbsubnetgroupname"
-  vpc_id        = var.vpc_id
-  db_identifier = var.db_identifier
-}
-
-# Create postgres db
-module "db" {
-  source               = "./db/"
-  db_sg_id             = module.dbsecuritygroup.db_sg_id
-  db_subnetgroup_name  = module.dbsubnetgroupname.db_subnetgroup_name
+# Create rds postgres db
+module "rds" {
+  source               = "./modules/rds/"
+  vpc_id               = var.vpc_id
   db_identifier        = var.db_identifier
   db_engine            = var.db_engine
   db_engine_version    = var.db_engine_version
@@ -43,19 +13,11 @@ module "db" {
   db_allocated_storage = var.db_allocated_storage
   db_name              = var.db_name
   db_username          = var.db_username
-  db_password          = module.dbpassword.db_password
-}
-
-# Create sshkeypair for shell access to instances
-module "sshkeypair" {
-  source    = "./sshkeypair"
-  sshpubkey = var.sshpubkey
 }
 
 # Create ec2-instance for webserver
 module "webserver" {
-  source     = "./webserver"
-  region     = var.region
-  awsami     = var.awsami
-  sshkeyname = module.sshkeypair.sshkeyname
+  source    = "./modules/webserver"
+  region    = var.region
+  awsami    = var.awsami
 }

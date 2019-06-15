@@ -1,3 +1,9 @@
+# Create keypair using $HOME/.ssh/id_rsa.pub
+resource "aws_key_pair" "sshkeypair" {
+  key_name   = "sshkey"
+  public_key = file(var.sshpubkey)
+}
+
 # Create IAM role for webserver
 resource "aws_iam_role" "webserverrole" {
   name = "webserverrole"
@@ -35,7 +41,7 @@ resource "aws_iam_instance_profile" "webserverprofile" {
 resource "aws_instance" "webserver" {
   ami = var.awsami[var.region]
   instance_type = "t2.micro"
-  key_name = var.sshkeyname
+  key_name = aws_key_pair.sshkeypair.key_name
   iam_instance_profile = aws_iam_instance_profile.webserverprofile.name
   root_block_device {
     delete_on_termination = true

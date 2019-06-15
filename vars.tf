@@ -3,7 +3,8 @@ variable "region" {
 }
 variable "vpc_id" {}
 variable "kms_key_id" {}
-variable "db_sg_id" {}
+
+# Variables for db modules
 variable "db_identifier" {
   default = "pgdbserver"
 }
@@ -25,11 +26,6 @@ variable "db_name" {
 variable "db_username" {
   default = "pgdbuser"
 }
-variable "db_password" {}
-variable "sshpubkey" {
-  default = "/home/me/Documents/.ssh/id_rsa.pub"
-}
-variable "sshkeyname" {}
 variable "awsami" {
   type = map(string)
   default = {
