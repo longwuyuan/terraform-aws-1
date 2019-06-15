@@ -37,9 +37,9 @@ resource "aws_iam_instance_profile" "webserverprofile" {
   role = aws_iam_role.webserverrole.name
 }
 
-# Create the sshserver security group
-resource "aws_security_group" "sshserver" {
-  name = "sshserver"
+# Create the webserver security group
+resource "aws_security_group" "webserver" {
+  name = "webserver"
   vpc_id = var.vpc_id
   ingress {
     self = true
@@ -48,20 +48,6 @@ resource "aws_security_group" "sshserver" {
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  # Allow all outbound traffic.
-  egress {
-    self = true
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-# Create the webserver security group
-resource "aws_security_group" "webserver" {
-  name = "webserver"
-  vpc_id = var.vpc_id
   ingress {
     self = true
     from_port = 80
@@ -79,14 +65,13 @@ resource "aws_security_group" "webserver" {
   }
 }
 
-
 # Create webserver ec2 instance  with above role and put the sshpubkey in it
 resource "aws_instance" "webserver" {
   ami = var.awsami[var.region]
   instance_type = "t2.micro"
   key_name = aws_key_pair.sshkeypair.key_name
   iam_instance_profile = aws_iam_instance_profile.webserverprofile.name
-  vpc_security_group_ids = [aws_security_group.sshserver.id, aws_security_group.webserver.id]
+  vpc_security_group_ids = [aws_security_group.webserver.id]
   root_block_device {
     delete_on_termination = true
     volume_size = 8
