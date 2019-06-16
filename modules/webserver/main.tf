@@ -1,3 +1,5 @@
+# ./modules/webserver/main.tf
+
 # Create keypair using $HOME/.ssh/id_rsa.pub
 resource "aws_key_pair" "sshkeypair" {
   key_name   = "sshkey"
@@ -23,6 +25,14 @@ resource "aws_iam_role" "webserverrole" {
   ]
 }
 EOF
+}
+
+# Grant access to KMS key for the above role
+resource "aws_kms_grant" "kmsgrant" {
+  name = "kmsgrant"
+  key_id = var.kms_key_id
+  grantee_principal = aws_iam_role.webserverrole.arn
+  operations = ["Encrypt", "Decrypt", "GenerateDataKey"]
 }
 
 # Attach ReadOnlyAcces policy to the webserverrole created above

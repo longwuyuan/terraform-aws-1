@@ -3,6 +3,9 @@
 variable "region" {}
 variable "vpc_id" {}
 
+# Variable for kms
+variable "kms_key_id" {}
+
 # Variables for rds module
 variable "db_identifier" {
   default = "pgdbserver"

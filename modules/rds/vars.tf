@@ -1,4 +1,7 @@
+# ./modules/rds/vars.tf
+
 variable "vpc_id" {}
+variable "kms_key_id" {}
 variable "db_identifier" {}
 variable "db_engine" {}
 variable "db_engine_version" {}

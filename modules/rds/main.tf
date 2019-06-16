@@ -1,20 +1,6 @@
 # ./modules/rds/main.tf
 
-# Create aws kms key
-## Caution - Reruns potentially create lots of keys that can NOT be deleted for at least a week after destroying resource
-resource "aws_kms_key" "kmskey" {}
-
-# Create alias for key created above
-resource "aws_kms_alias" "kmskeyalias" {
-  name          = "alias/kmskeyalias"
-  target_key_id = aws_kms_key.kmskey.key_id
-}
-
-# Output the key for use by ssm/db/other modules
-output "kmskeyid" {
-  value = aws_kms_key.kmskey.key_id
-}
-
+# Need terraform "random" provider
 # Generate random string to create db password secret
 resource "random_string" "rstring" {
   length  = 16
@@ -26,7 +12,7 @@ resource "aws_ssm_parameter" "pgdbsecret" {
   name   = "pgdbserver-master-password"
   type   = "SecureString"
   value  = random_string.rstring.result
-  key_id = aws_kms_key.kmskey.key_id
+  key_id = var.kms_key_id
 }
 
 # Use vpc_id as data source to get cidr block for securitygroup ingress
