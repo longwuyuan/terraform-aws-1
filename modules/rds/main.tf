@@ -72,6 +72,6 @@ resource "aws_db_instance" "pgdbserver" {
 }
 
 # Output the endpoint of the RDS instance for use by the webserver
-output "rds-endpoint" {
+output "rds_endpoint" {
   value = aws_db_instance.pgdbserver.endpoint
 }

@@ -37,3 +37,4 @@ variable "awsami" {
     us-west-2 = "ami-0cb72367e98845d43"
   }
 }
+variable "rds_endpoint" {}

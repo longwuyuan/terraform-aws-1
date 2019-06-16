@@ -36,4 +36,5 @@ module "webserver" {
   region     = var.region
   vpc_id     = var.vpc_id
   awsami     = var.awsami
+  rds_endpoint = module.rds.rds_endpoint
 }

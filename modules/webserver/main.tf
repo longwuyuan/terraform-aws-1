@@ -88,3 +88,8 @@ resource "aws_instance" "webserver" {
     volume_type = "gp2"
   }
 }
+
+# Fire a ansible playbook
+#provisioner "local-exec" {
+  #  command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible -u ec2-user -i aws_instance.webserver.public_ip master.yml"
+  #}
