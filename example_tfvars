@@ -1,2 +1,4 @@
 region     = "us-west-1"
 vpc_id     = "vpc-nhg20ks8"
+kms_key_id   = ""
+rds_endpoint = ""

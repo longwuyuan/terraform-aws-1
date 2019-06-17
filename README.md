@@ -2,22 +2,29 @@
 
 Terraform example for one RDS instance & One EC2 instance ;
 
-## Requirements
-- The VPC & its Subnets is pre-created outside of terraform
-- Terraform version > 0.12
-- Ansible
-- AWS credentials in $HOME/.aws/ as per terraform default
-- terraform.tfvars as below
+## Pre-requisies
+- Terraform version > 0.12 in $PATH
+- Ansible recent version
+- AWS credentials in $HOME/.aws/ 
+- VPC pre-created before running terraform here
+- File terraform.tfvars should contain these four variables
 
 ```
 region     = "us-west-1"
 vpc_id     = "vpc-nhg20ks8"
+kms_key_id   = ""
+rds_endpoint = ""
+```
+- Generate a ssh keypair named as id_rsa and id_rsa.pub in ./modules/webserver folder. Don't set a password to the priv key ;
+
+```
+    ssh-keygen -t rsa
 ```
 - Modify vars.tf, in root folder, if required 
 
 ## Caution - read & understand the impact of kms module. Takes 7 days to remove a key after destroy
  
-## Creates ;
+## This code creates ;
 - kms key
 - random string for rds password
 - ssm parameter for rds password
@@ -31,5 +38,6 @@ vpc_id     = "vpc-nhg20ks8"
 
 ## Other things done
 - RDS instance is seeded with some sample data to be presented on a webpage
-- Ansible installs Nginx
+- Ansible installs Nginx postgresql client
 - A simple python scripts queries the RDS and presents the data there on homepage of nginx
+- TODO: Several cleanups and improvements
