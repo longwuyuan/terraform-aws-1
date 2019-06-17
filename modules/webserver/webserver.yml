@@ -7,13 +7,20 @@
       systemd:
         name: postfix
         state: stopped
+        enabled: no
     - name: stop service rpcbind
       systemd:
         name: rpcbind
         state: stopped
-
+        enabled: no
     - name: install nginx & postgres client
       yum:
         name:
           - nginx
           - postgresql
+          - jq
+    - name: Start & Enable nginx service 
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes
