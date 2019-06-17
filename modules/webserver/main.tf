@@ -87,11 +87,15 @@ resource "aws_instance" "webserver" {
     volume_size = 8
     volume_type = "gp2"
   }
-  # Fetch & store db access details on server
+  # Fire-up a ansible playbook for installing software
+  provisioner "local-exec" {
+    command = "sleep 120 && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user --key-file ${var.sshprivkey} -i ${aws_instance.webserver.public_ip},  ./modules/webserver/webserver.yml"
+  }
+  # Get & store rds secret
   provisioner "remote-exec" {
     inline = [
       "echo ${var.rds_endpoint} > /tmp/rds_endpoint",
-      "sudo yum -y install jq && aws ssm get-parameter --name pgdbserver-master-password --with-decryption --region ${var.region} | jq -r .Parameter.Value  > /tmp/rds_password",
+      "aws ssm get-parameter --name pgdbserver-master-password --with-decryption --region ${var.region} | jq -r .Parameter.Value  > /tmp/rds_password",
     ]
     connection {
       host = aws_instance.webserver.public_ip
@@ -99,9 +103,5 @@ resource "aws_instance" "webserver" {
       user = "ec2-user"
       private_key = file(var.sshprivkey)
     }
-  }
-  # Fire-up a ansible playbook for deploying simple webapp 
-  provisioner "local-exec" {
-    command = "sleep 120 && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user --key-file ${var.sshprivkey} -i ${aws_instance.webserver.public_ip},  ./modules/webserver/webserver.yml"
   }
 }

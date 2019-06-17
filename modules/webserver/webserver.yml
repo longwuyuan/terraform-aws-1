@@ -3,21 +3,30 @@
   tasks:
     - name: Enable nginx repo
       command: amazon-linux-extras enable nginx1.12
-    - name: stop service postfix smtpd
+    - name: Stop service postfix smtpd
       systemd:
         name: postfix
         state: stopped
         enabled: no
-    - name: stop service rpcbind
+    - name: Stop service rpcbind
       systemd:
         name: rpcbind
         state: stopped
         enabled: no
-    - name: install nginx & postgres client
+    - name: Install nginx & other requirements
       yum:
         name:
+          - python-pip
+          - psycopg2
           - nginx
           - postgresql
+          - jq
+    - name: Install python libraries using pip
+      pip:
+        name:
+          - sqlalchemy
+          - Flask
+          - Flask-SQLAlchemy
     - name: Start & Enable nginx service 
       systemd:
         name: nginx
