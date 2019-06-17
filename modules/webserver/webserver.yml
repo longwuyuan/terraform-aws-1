@@ -18,7 +18,6 @@
         name:
           - nginx
           - postgresql
-          - jq
     - name: Start & Enable nginx service 
       systemd:
         name: nginx
