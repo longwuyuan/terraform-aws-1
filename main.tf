@@ -31,10 +31,10 @@ module "rds" {
 
 # Create ec2-instance for webserver
 module "webserver" {
-  source     = "./modules/webserver"
-  kms_key_id = aws_kms_key.kmskey.key_id
-  region     = var.region
-  vpc_id     = var.vpc_id
-  awsami     = var.awsami
+  source       = "./modules/webserver"
+  kms_key_id   = aws_kms_key.kmskey.key_id
+  region       = var.region
+  vpc_id       = var.vpc_id
+  awsami       = var.awsami
   rds_endpoint = module.rds.rds_endpoint
 }

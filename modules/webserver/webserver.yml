@@ -1,0 +1,19 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Enable nginx repo
+      command: amazon-linux-extras enable nginx1.12
+    - name: stop service postfix smtpd
+      systemd:
+        name: postfix
+        state: stopped
+    - name: stop service rpcbind
+      systemd:
+        name: rpcbind
+        state: stopped
+
+    - name: install nginx & postgres client
+      yum:
+        name:
+          - nginx
+          - postgresql

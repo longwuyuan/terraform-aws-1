@@ -87,9 +87,21 @@ resource "aws_instance" "webserver" {
     volume_size = 8
     volume_type = "gp2"
   }
+  # Fire a ansible playbook for system update and installing nginx
+  provisioner "local-exec" {
+    command = "sleep 210 && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user --key-file ${var.sshprivkey} -i ${aws_instance.webserver.public_ip},  ./modules/webserver/webserver.yml"
+  }
+  # Fetch & store db access details on server
+  provisioner "remote-exec" {
+    inline = [
+      "echo ${var.rds_endpoint} > /tmp/rds_endpoint",
+      "aws ssm get-parameter --name pgdbserver-master-password --with-decryption --region us-west-2 | grep Value > /tmp/rds_password",
+    ]
+    connection {
+      host = "${aws_instance.webserver.public_ip}"
+      type = "ssh"
+      user = "ec2-user"
+      private_key = "file(${var.sshprivkey})"
+    }
+  }
 }
-
-# Fire a ansible playbook
-#provisioner "local-exec" {
-  #  command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible -u ec2-user -i aws_instance.webserver.public_ip master.yml"
-  #}
