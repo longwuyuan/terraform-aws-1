@@ -17,7 +17,7 @@
       yum:
         name:
           - python-pip
-          - psycopg2
+          - python-psycopg2
           - nginx
           - postgresql
           - jq
