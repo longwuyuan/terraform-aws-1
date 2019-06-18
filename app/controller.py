@@ -1,4 +1,4 @@
-# https://techarena51.com/blog/flask-sqlalchemy-postgresql-tutorial/
+# From https://techarena51.com/blog/flask-sqlalchemy-postgresql-tutorial/
 from flask import render_template, request,flash, redirect, url_for
 from model import Post, app
 
@@ -23,7 +23,7 @@ def post_add():
         return render_template('add.html')
 
 #UPDATE
-@app.route('/update/&lt;id&gt;' , methods=['POST', 'GET'])
+@app.route('/update/<id>' , methods=['POST', 'GET'])
 def post_update (id):
     #Check if the post exists:
     post = Post.query.get(id)
@@ -46,7 +46,7 @@ def post_update (id):
             return render_template('update.html', post=post)
 
 #DELETE
-@app.route('/delete/&lt;id&gt;' , methods=['POST', 'GET'])
+@app.route('/delete/<id>' , methods=['POST', 'GET'])
 def post_delete (id):
     post = Post.query.get(id)
     #Check if the post exists:

@@ -16,17 +16,9 @@
     - name: Install nginx & other requirements
       yum:
         name:
-          - python-pip
-          - python-psycopg2
           - nginx
           - postgresql
           - jq
-    - name: Install python libraries using pip
-      pip:
-        name:
-          - sqlalchemy
-          - Flask
-          - Flask-SQLAlchemy
     - name: Start & Enable nginx service 
       systemd:
         name: nginx

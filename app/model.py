@@ -7,7 +7,7 @@ from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql://pgdbuser:password@localhost:5432/pgdb'
+app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql://pgdbuser:dummypass@dummyhost:5432/pgdb'
 app.secret_key = 'some_secret'
 db = SQLAlchemy(app)
 

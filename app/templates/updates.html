@@ -1,0 +1,40 @@
+<--! Start flash message -->
+{% with messages = get_flashed_messages() %}
+ {% if messages %}
+ <ul class=flashes>
+ {% for message in messages %}
+ <li>{{ message }}</li>
+ {% endfor %}
+ </ul>
+ {% endif %}
+{% endwith %}
+
+<!--Tiny MCE -->
+<script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
+<script>tinymce.init({paste_data_images: true, paste_as_text: true,selector: '#content', plugins: ["image","code"] });</script>
+<!--Tiny MCE end -->
+
+<div class="center row">
+ <div class="large-12 columns">
+ <fieldset>
+
+<form action="" method="POST">
+ <input type="text" name="author" value="{{post.author}}" required/>
+ <label>Title<input type="text" name="title" value="{{post.title}}" required/></label>
+ <label>Body<textarea type="text" id="content" name="content" rows="20">{{post.content}}</textarea></label>
+ <label>Published
+ <select name="published">
+ {% if post.published == "True" %}
+ <option value="True"selected>Yes</option>
+ <option value="False">No</option>
+ {% else %}
+ <option value="True">Yes</option>
+ <option value="False"selected>No</option>
+ {% endif %}
+ </select>
+ </label>
+ <button class="button " type="submit">Update</button>
+ </form>
+ </fieldset>
+ </div>
+</div>

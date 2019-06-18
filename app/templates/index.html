@@ -1,0 +1,37 @@
+<--! Start flash message -->
+{% with messages = get_flashed_messages() %}
+ {% if messages %}
+ <ul class=flashes>
+ {% for message in messages %}
+ <li>{{ message }}</li>
+ {% endfor %}
+ </ul>
+ {% endif %}
+{% endwith %}
+
+<--! End flash message -->
+
+<div class="center row">
+ <div class="small-8 columns"><p><h4 style="display:inline">Posts </h4><a href="{{ url_for('post_add')}}">Add new</a></p></div>
+</div>
+
+<hr />
+<div class="center row">
+ <div class="small-12 columns">
+ <table>
+ <thead><tr><th>Title</th><th>Author</th><th>Content</th><th>Published</th><th>Actions</th></tr></thead>
+ <tbody>
+ <tr>
+ {% for post in post %}
+ <td>{{ post.title }}</td>
+ <td>{{ post.author }}</td>
+ <td>{{ post.content|safe }}</td>
+ <td>{{ post.published }}</td>
+ <td><a href="{{ url_for('post_update', id=post.id) }}">Edit</a></td>
+ <td><a href="{{ url_for('post_delete', id=post.id) }}">Delete</a></td>
+ </tr>
+ {% endfor %}
+ </tbody>
+ </table>
+ </div>
+</div>

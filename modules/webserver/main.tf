@@ -87,11 +87,11 @@ resource "aws_instance" "webserver" {
     volume_size = 8
     volume_type = "gp2"
   }
-  # Fire-up a ansible playbook for installing software
+  # Fire-up a ansible playbook for configuring basics on the server
   provisioner "local-exec" {
     command = "sleep 120 && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user --key-file ${var.sshprivkey} -i ${aws_instance.webserver.public_ip},  ./modules/webserver/webserver.yml"
   }
-  # Get & store rds secret
+  # Get and store rds endpoint & secret on the server
   provisioner "remote-exec" {
     inline = [
       "echo ${var.rds_endpoint} > /tmp/rds_endpoint",
