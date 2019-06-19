@@ -16,7 +16,7 @@
         src: index.php
         dest: /usr/share/nginx/html/index.php
         force: yes
-    - name: Run the shell script to read rds creds stored on server and update the db_connect string
+    - name: Copy shell script to put rds credentials in the php page
       copy:
         src: fix_rds_creds.sh
         dest: /tmp
