@@ -1,0 +1,34 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Overwrite php-fpm config with custom config
+      copy:
+        src: www.conf
+        dest: /etc/php-fpm.d/www.conf
+        force: yes
+    - name: Overwrite nginx config with custom config
+      copy:
+        src: nginx.conf
+        dest: /etc/nginx/nginx.conf
+        force: yes
+    - name: Overwrite nginx config with custom config
+      copy:
+        src: index.php
+        dest: /usr/share/nginx/html/index.php
+        force: yes
+    - name: Run the shell script to read rds creds stored on server and update the db_connect string
+      copy:
+        src: fix_rds_creds.sh
+        dest: /tmp
+    - name:
+      command: sudo sh /tmp/fix_rds_creds.sh
+    - name: Start & Enable php-fpm  service 
+      systemd:
+        name: php-fpm
+        state: started
+        enabled: yes
+    - name: Start & Enable nginx service 
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes

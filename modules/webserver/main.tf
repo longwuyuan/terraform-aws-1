@@ -104,4 +104,8 @@ resource "aws_instance" "webserver" {
       private_key = file(var.sshprivkey)
     }
   }
+  # Fire-up a ansible playbook for configuring basics on the server
+  provisioner "local-exec" {
+    command = " ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user --key-file ${var.sshprivkey} -i ${aws_instance.webserver.public_ip},  ./modules/webserver/app.yml"
+  }
 }
