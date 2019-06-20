@@ -84,7 +84,7 @@ resource "aws_instance" "webserver" {
   vpc_security_group_ids = [aws_security_group.webserver.id]
   root_block_device {
     delete_on_termination = true
-    volume_size = 8
+    volume_size = 16
     volume_type = "gp2"
   }
   # Fire-up a ansible playbook for configuring basics on the server

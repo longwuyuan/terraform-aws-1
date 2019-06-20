@@ -20,7 +20,7 @@ variable "db_instance_class" {
   default = "db.t2.micro"
 }
 variable "db_allocated_storage" {
-  default = 8
+  default = 20
 }
 variable "db_name" {
   default = "pgdb"
