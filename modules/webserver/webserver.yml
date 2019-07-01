@@ -1,0 +1,64 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Enable nginx repo
+      command: amazon-linux-extras enable nginx1.12
+    - name: Stop service postfix smtpd
+      systemd:
+        name: postfix
+        state: stopped
+        enabled: no
+    - name: Stop service rpcbind
+      systemd:
+        name: rpcbind
+        state: stopped
+        enabled: no
+    - name: Install nginx & other requirements
+      yum:
+        name:
+          - nginx
+          - postgresql
+          - jq
+          - php
+          - php-fpm
+          - php-pgsql
+    - name: Disable ipv6 on eth0
+      sysctl:
+        name: net.ipv6.conf.eth0.disable_ipv6
+        value: 1
+        sysctl_set: yes
+    - name: Disable ipv6 policy on eth0
+      sysctl:
+        name: net.ipv6.conf.eth0.disable_policy
+        value: 1
+        sysctl_set: yes
+    - name: Disable ipv6 on lo
+      sysctl:
+        name: net.ipv6.conf.lo.disable_ipv6
+        value: 1
+        sysctl_set: yes
+    - name: Disable ipv6 policy on lo
+      sysctl:
+        name: net.ipv6.conf.lo.disable_policy
+        value: 1
+        sysctl_set: yes
+    - name: Disable ipv6  on all
+      sysctl:
+        name: net.ipv6.conf.all.disable_ipv6
+        value: 1
+        sysctl_set: yes
+    - name: Disable ipv6 policy on all
+      sysctl:
+        name: net.ipv6.conf.all.disable_policy
+        value: 1
+        sysctl_set: yes
+    - name: Disable ipv6 on default
+      sysctl:
+        name: net.ipv6.conf.default.disable_ipv6
+        value: 1
+        sysctl_set: yes
+    - name: Disable ipv6 policy on default
+      sysctl:
+        name: net.ipv6.conf.default.disable_policy
+        value: 1
+        sysctl_set: yes
